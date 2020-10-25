@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types';
 
-export default class PostsLists extends Component {
+ class PostsLists extends Component {
     render() {
         const {posts}=this.props;
         return (
@@ -32,7 +33,7 @@ export default class PostsLists extends Component {
                   </div>
                   <div className="post-comments-icon">
                     <img
-                      src="https://image.flaticon.com/icons/svg/1077/1077035.svg"
+                      src="https://image.flaticon.com/icons/svg/1380/1380338.svg"
                       alt="likes-icon"
                     />
                     <span>{post.comments.length}</span>
@@ -62,3 +63,9 @@ export default class PostsLists extends Component {
         )
     }
 }
+
+PostsLists.proptype={
+  posts:PropTypes.string.isRequired,
+};
+
+export default PostsLists;
