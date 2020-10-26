@@ -4,9 +4,9 @@ import PropTypes from "prop-types";
 import { BrowserRouter as Router, Route,Switch } from "react-router-dom";
 
 import { fetchPosts } from "../actions/posts";
-import { Home, Navbar, Page404 } from "./";
+import { Home, Navbar, Page404,Login } from "./";
 
-const Login = () => <div>Login</div>;
+
 const Signup = () => <div>Sign up</div>;
 
 class App extends Component {
