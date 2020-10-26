@@ -3,9 +3,9 @@ import React, { Component } from 'react'
  class Login extends Component {
     render() {
         return (
-            <div>
-                
-            </div>
+           <form className="login-form">
+                  <span className="login-signup-header">Log in</span>
+           </form>
         )
     }
 }
