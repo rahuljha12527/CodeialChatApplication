@@ -30,7 +30,7 @@ class App extends Component {
             render={(props) => {
               return <Home {...props} posts={posts} />;
             }}
-          />
+          />  
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
           <Route component={Page404} />
