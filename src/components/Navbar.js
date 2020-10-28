@@ -33,7 +33,7 @@ function Navbar(props) {
                 src="https://image.flaticon.com/icons/svg/2154/2154651.svg"
                 alt="user-dp"
               />
-              <span>Gargi Singh</span>
+              <span>Neemi Sona</span>
             </li>
           </ul>
         </div>
