@@ -5,7 +5,7 @@ export function getFormBody(params){
          let encodedKey=encodeURIComponent(property); //'user nam   
          let encodedValue=encodeURIComponent(params[property]);
 
-         formBody(encodedKey+ '= '+encodedValue);
+         formBody.push(encodedKey+ '= '+encodedValue);
 
 
     }
