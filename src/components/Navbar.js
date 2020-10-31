@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 import { logoutUser } from "../actions/auth";
 
 class Navbar extends React.Component {
-  logOut=()=>{
-    localStorage.removeItem('token');
+  logOut = () => {
+    localStorage.removeItem("token");
     this.props.dispatch(logoutUser());
-  }
+  };
   render() {
     const { auth } = this.props;
     return (
@@ -66,15 +66,11 @@ class Navbar extends React.Component {
                 </li>
               )}
 
-              {auth.isLoggedin && (
-                <li onClick={this.logOut}>
-                  Log out
-                </li>
-              )}
+              {auth.isLoggedin && <li onClick={this.logOut}>Log out</li>}
 
               {!auth.isLoggedin && (
                 <li>
-                  <Link to="/sigup">Register</Link>
+                  <Link to="/signup">Register</Link>
                 </li>
               )}
             </ul>
