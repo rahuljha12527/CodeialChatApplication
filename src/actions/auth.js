@@ -1,4 +1,3 @@
-import { APIUrls } from "../helpers/urls";
 import {
   AUTHENTICATE_USER,
   LOGIN_FAILED,
@@ -8,8 +7,9 @@ import {
   SIGNUP_START,
   SIGNUP_SUCCESS,
   LOG_OUT,
-  CLEAR_AUTH_STATE
+  CLEAR_AUTH_STATE,
 } from "./actionTypes";
+import { APIUrls } from "../helpers/urls";
 import { getFormBody } from "../helpers/utils";
 
 export function startLogin() {
@@ -18,19 +18,6 @@ export function startLogin() {
   };
 }
 
-export function loginFailed(errorMessage) {
-  return {
-    type: LOGIN_FAILED,
-    error: errorMessage,
-  };
-}
-
-export function loginSuccess(user) {
-  return {
-    type: LOGIN_SUCCESS,
-    user,
-  };
-}
 export function signUpStart() {
   return {
     type: SIGNUP_START,
@@ -51,22 +38,37 @@ export function signUpSuccessfull(user) {
   };
 }
 
+export function loginFailed(errorMessage) {
+  return {
+    type: LOGIN_FAILED,
+    error: errorMessage,
+  };
+}
+
+export function loginSuccess(user) {
+  return {
+    type: LOGIN_SUCCESS,
+    user,
+  };
+}
+
 export function login(email, password) {
   return (dispatch) => {
     dispatch(startLogin());
     const url = APIUrls.login();
     fetch(url, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "applcation/x-www-form-urlencoded",
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: getFormBody({ email, password }),
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("data", data);
+        console.log('data', data);
         if (data.success) {
-          localStorage.setItem("token", data.data.token);
+          // dispatch action to save user
+          localStorage.setItem('token', data.data.token);
           dispatch(loginSuccess(data.data.user));
           return;
         }
@@ -74,8 +76,7 @@ export function login(email, password) {
       });
   };
 }
-
-export function signup(email, password, username, confirm_password) {
+export function signup(email, password, confirm_password, name) {
   return (dispatch) => {
     //  dispatch(signUpStart());
     const url = APIUrls.signup();
@@ -84,11 +85,17 @@ export function signup(email, password, username, confirm_password) {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
-      body: getFormBody({ email, password, username, confirm_password }),
+      body: getFormBody({ 
+        email,
+        password,
+        confirm_password, 
+        name
+       }),
     })
       .then((response) => response.json())
       .then((data) => {
         console.log("data", data);
+        console.log("data success", data.success);
         if (data.success) {
           localStorage.setItem("token", data.data.token);
           dispatch(signUpSuccessfull(data.data.user));
@@ -112,9 +119,8 @@ export function logoutUser() {
   };
 }
 
-
-export function clearAuthState(){
+export function clearAuthState() {
   return {
-    type:CLEAR_AUTH_STATE,
+    type: CLEAR_AUTH_STATE,
   };
 }

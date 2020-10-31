@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { signup, signUpStart,clearAuthState  } from "../actions/auth";
+import { Redirect } from "react-router-dom";
 
 class SignUp extends Component {
   constructor(props) {
@@ -9,7 +10,7 @@ class SignUp extends Component {
 
       email: "",
       password: "",
-      username: "",
+      name: "",
       confirm_password: "",
     };
   }
@@ -27,16 +28,20 @@ class SignUp extends Component {
 
   onFormSubmit = (e) => {
     e.preventDefault();
-    const { email, password, confirm_password, username } = this.state;
+    const { email, password, confirm_password, name } = this.state;
 
-    if (email && password && confirm_password && username) {
+    if (email && password && confirm_password && name) {
       this.props.dispatch(signUpStart());
-      this.props.dispatch(signup(email, password, confirm_password, username));
+      this.props.dispatch(signup(email, password, confirm_password, name));
     }
   };
 
   render() {
-    const { inProgress, error } = this.props.auth;
+    const { inProgress, error,isLoggedin } = this.props.auth;
+
+    if(isLoggedin){
+      return <Redirect to="/" />
+    }
     return (
       <form className="login-form">
         <span className="login-signup-header">Sign Up</span>

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-
 import { Redirect } from "react-router-dom";
 import { clearAuthState, login } from "../actions/auth";
 
@@ -15,11 +14,11 @@ class Login extends Component {
     };
   }
 
-  componentWillUnmount(){
-      this.props.dispatch(clearAuthState());
+  componentWillUnmount() {
+    this.props.dispatch(clearAuthState());
   }
   handleEmailChange = (e) => {
-    console.log(e.target.value);
+    //    console.log(e.target.value);
     this.setState({
       email: e.target.value,
     });
@@ -40,9 +39,9 @@ class Login extends Component {
   };
 
   render() {
-    const { error, inProgress,isLoggedin } = this.props.auth;
+    const { error, inProgress, isLoggedin } = this.props.auth;
 
-    if(isLoggedin){
+    if (isLoggedin) {
       return <Redirect to="/" />;
     }
     return (
@@ -70,9 +69,14 @@ class Login extends Component {
           />
         </div>
         <div className="field">
-          {inProgress? <button onClick={this.handleFormSubmit} disabled={inProgress}>Logging in...</button>:
-           <button onClick={this.handleFormSubmit}>Log In</button>}
-          </div>
+          {inProgress ? (
+            <button onClick={this.handleFormSubmit} disabled={inProgress}>
+              Logging in...
+            </button>
+          ) : (
+            <button onClick={this.handleFormSubmit}>Log In</button>
+          )}
+        </div>
       </form>
     );
   }
