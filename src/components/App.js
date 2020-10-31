@@ -4,12 +4,12 @@ import PropTypes from "prop-types";
 import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
 
 import { fetchPosts } from "../actions/posts";
-import { Home, Navbar, Page404, Login, SignUp } from "./";
+import { Home, Navbar, Page404, Login, SignUp,Settings } from "./";
 import jwt_decode from "jwt-decode";
 import { authenticateUser } from "../actions/auth";
 
 
-const Settings=() => <div>Setting</div>
+// const Settings=() => <div>Setting</div>
 
 const PrivateRoute=(privateRouteProps)=>{
   const {isLoggedin,path,component:Component}=privateRouteProps;
