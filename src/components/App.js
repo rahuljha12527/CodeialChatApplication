@@ -8,6 +8,7 @@ import { Home, Navbar, Page404, Login, SignUp,Settings } from "./";
 import jwt_decode from "jwt-decode";
 import { authenticateUser } from "../actions/auth";
 import { getAuthTokenFromLocalStorage } from "../helpers/utils";
+import UserProfile from "./UserProfile";
 
 
 // const Settings=() => <div>Setting</div>
@@ -63,6 +64,7 @@ class App extends Component {
             <Route path="/login" component={Login} />
             <Route path="/signup" component={SignUp} />
             <PrivateRoute path="/settings" component={Settings} isLoggedin={auth.isLoggedin} />
+            <PrivateRoute path="/user" component={UserProfile} isLoggedin={auth.isLoggedin} />
             <Route component={Page404} />
           </Switch>
         </div>
