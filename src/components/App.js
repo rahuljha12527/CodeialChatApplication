@@ -7,6 +7,7 @@ import { fetchPosts } from "../actions/posts";
 import { Home, Navbar, Page404, Login, SignUp,Settings } from "./";
 import jwt_decode from "jwt-decode";
 import { authenticateUser } from "../actions/auth";
+import { getAuthTokenFromLocalStorage } from "../helpers/utils";
 
 
 // const Settings=() => <div>Setting</div>
@@ -15,14 +16,19 @@ const PrivateRoute=(privateRouteProps)=>{
   const {isLoggedin,path,component:Component}=privateRouteProps;
 
   return <Route path={path} render={(props)=>{
-    return isLoggedin? <Component {...props}/>:<Redirect to="/login" />
+    return isLoggedin? <Component {...props}/>:<Redirect to={{
+      pathname:'/login',
+      state:{
+        from:props.location
+      }
+    }} />
   }}/>
 };
 class App extends Component {
   componentDidMount() {
     this.props.dispatch(fetchPosts());
 
-    const token = localStorage.getItem("token");
+    const token = getAuthTokenFromLocalStorage();
     console.log("token", token);
     if (token) {
       const user = jwt_decode(token);
