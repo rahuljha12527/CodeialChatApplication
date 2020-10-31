@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route,Switch } from "react-router-dom";
 import { fetchPosts } from "../actions/posts";
 import { Home, Navbar, Page404,Login,SignUp } from "./";
 import jwt_decode from "jwt-decode";
+import { authenticateUser } from "../actions/auth";
 
 
 class App extends Component {
@@ -16,9 +17,14 @@ class App extends Component {
     const token = localStorage.getItem('token');
     console.log("token",token);
     if (token) {
-      const users = jwt_decode(token);
+      const user = jwt_decode(token);
 
-      console.log('user',users);
+      console.log('user',user);
+      this.props.dispatch(authenticateUser({
+        email:user.email,
+        _id:user._id,
+        name:user.name
+      }))
     }
   }
 

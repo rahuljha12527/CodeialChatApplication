@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { signup, signUpStart } from "../actions/auth";
+import { signup, signUpStart,clearAuthState  } from "../actions/auth";
 
 class SignUp extends Component {
   constructor(props) {
@@ -13,6 +13,11 @@ class SignUp extends Component {
       confirm_password: "",
     };
   }
+
+  componentWillUnmount() {
+    this.props.dispatch(clearAuthState());
+  }
+  
 
   handleInputChange = (field, value) => {
     this.setState({

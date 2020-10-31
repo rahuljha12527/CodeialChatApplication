@@ -1,11 +1,14 @@
 import { APIUrls } from "../helpers/urls";
 import {
+  AUTHENTICATE_USER,
   LOGIN_FAILED,
   LOGIN_START,
   LOGIN_SUCCESS,
   SIGNUP_FAILED,
   SIGNUP_START,
   SIGNUP_SUCCESS,
+  LOG_OUT,
+  CLEAR_AUTH_STATE
 } from "./actionTypes";
 import { getFormBody } from "../helpers/utils";
 
@@ -63,7 +66,7 @@ export function login(email, password) {
       .then((data) => {
         console.log("data", data);
         if (data.success) {
-          localStorage.setItem('token',data.data.token);
+          localStorage.setItem("token", data.data.token);
           dispatch(loginSuccess(data.data.user));
           return;
         }
@@ -74,7 +77,7 @@ export function login(email, password) {
 
 export function signup(email, password, username, confirm_password) {
   return (dispatch) => {
-  //  dispatch(signUpStart());
+    //  dispatch(signUpStart());
     const url = APIUrls.signup();
     fetch(url, {
       method: "POST",
@@ -83,15 +86,35 @@ export function signup(email, password, username, confirm_password) {
       },
       body: getFormBody({ email, password, username, confirm_password }),
     })
-    .then((response)=>response.json())
-    .then((data)=>{
-      console.log('data',data);
-      if(data.success){
-        localStorage.setItem('token',data.data.token);
-        dispatch(signUpSuccessfull(data.data.user));
-        return;
-      }
-      dispatch(signUpFailed(data.message));
-    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("data", data);
+        if (data.success) {
+          localStorage.setItem("token", data.data.token);
+          dispatch(signUpSuccessfull(data.data.user));
+          return;
+        }
+        dispatch(signUpFailed(data.message));
+      });
+  };
+}
+
+export function authenticateUser(user) {
+  return {
+    type: AUTHENTICATE_USER,
+    user,
+  };
+}
+
+export function logoutUser() {
+  return {
+    type: LOG_OUT,
+  };
+}
+
+
+export function clearAuthState(){
+  return {
+    type:CLEAR_AUTH_STATE,
   };
 }
