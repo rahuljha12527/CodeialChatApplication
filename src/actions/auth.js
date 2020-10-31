@@ -41,10 +41,10 @@ export function signUpFailed(errorMessage) {
   };
 }
 
-export function signUpSuccessfull(errorMessage) {
+export function signUpSuccessfull(user) {
   return {
     type: SIGNUP_SUCCESS,
-    error: errorMessage,
+    user,
   };
 }
 
@@ -63,6 +63,7 @@ export function login(email, password) {
       .then((data) => {
         console.log("data", data);
         if (data.success) {
+          localStorage.setItem('token',data.data.token);
           dispatch(loginSuccess(data.data.user));
           return;
         }
@@ -73,7 +74,7 @@ export function login(email, password) {
 
 export function signup(email, password, username, confirm_password) {
   return (dispatch) => {
-    dispatch(signUpStart());
+  //  dispatch(signUpStart());
     const url = APIUrls.signup();
     fetch(url, {
       method: "POST",
@@ -86,6 +87,7 @@ export function signup(email, password, username, confirm_password) {
     .then((data)=>{
       console.log('data',data);
       if(data.success){
+        localStorage.setItem('token',data.data.token);
         dispatch(signUpSuccessfull(data.data.user));
         return;
       }

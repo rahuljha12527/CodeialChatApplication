@@ -5,12 +5,12 @@ import { signup, signUpStart } from "../actions/auth";
 class SignUp extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
+
       email: "",
       password: "",
+      username: "",
       confirm_password: "",
-      username:"",
     };
   }
 
@@ -20,18 +20,18 @@ class SignUp extends Component {
     });
   };
 
-  onFormSubmit=(e)=>{
+  onFormSubmit = (e) => {
     e.preventDefault();
-    const {email,password,confirm_password,name}=this.state;
+    const { email, password, confirm_password, username } = this.state;
 
-    if(email && password && confirm_password && name){
-        this.props.dispatch(signUpStart());
-        this.props.dispatch(signup(email,password,confirm_password,name));
+    if (email && password && confirm_password && username) {
+      this.props.dispatch(signUpStart());
+      this.props.dispatch(signup(email, password, confirm_password, username));
     }
   };
 
   render() {
-      const {inProgress,error}=this.props.auth;
+    const { inProgress, error } = this.props.auth;
     return (
       <form className="login-form">
         <span className="login-signup-header">Sign Up</span>
